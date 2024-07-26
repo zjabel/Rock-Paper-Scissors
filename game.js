@@ -1,47 +1,51 @@
-let humanScore = 0;
-let computerScore = 0;
+document.addEventListener('DOMContentLoaded', () => {
+    let humanScore = 0;
+    let computerScore = 0;
 
-function getComputerChoice() {
-    const randomNumber = Math.floor(Math.random() * 3);
-    const choices = ["piedra", "papel", "tijera"];
-    return choices[randomNumber];
-}
+    let btnRock = document.querySelector("#rock");
+    let btnPaper = document.querySelector("#paper");
+    let btnScissors = document.querySelector("#scissors");
+    let result = document.querySelector("#result");
 
-function getHumanChoice() {
-    let humanChoice = "";
-    while (humanChoice.toLowerCase() !== "piedra" && humanChoice.toLowerCase() !== "papel" && humanChoice.toLowerCase() !== "tijera") {
-        humanChoice = prompt("¿Piedra, papel o tijera?: ");
+    function getComputerChoice() {
+        const choices = ["piedra", "papel", "tijera"];
+        const randomNumber = Math.floor(Math.random() * choices.length);
+        return choices[randomNumber];
     }
-    return humanChoice.toLowerCase();
-}
-function playRound() {
-    let countRounds = 1;
-    while (countRounds <= 5) {
-        const humanChoice = getHumanChoice();
+
+    function playRound(humanChoice) {
         const computerChoice = getComputerChoice();
-        console.log(`Ronda ${countRounds}: Humano -> ${humanChoice} | Ordenador -> ${computerChoice}`);
+        console.log(`Humano -> ${humanChoice} | Ordenador -> ${computerChoice}`);
 
         if (humanChoice === computerChoice) {
-            console.log("Vaya es un empate. Marcador actual: " + "Humano -> " + humanScore + " Ordenador -> " + computerScore);
-        } else if ((humanChoice === "piedra" && computerChoice === "papel") ||
+            console.log("Vaya es un empate.");
+        } else if (
+            (humanChoice === "piedra" && computerChoice === "papel") ||
             (humanChoice === "papel" && computerChoice === "tijera") ||
-            (humanChoice === "tijera" && computerChoice === "piedra")) {
+            (humanChoice === "tijera" && computerChoice === "piedra")
+        ) {
             computerScore += 1;
-            console.log("Ordenador gana 1 punto. Marcador actual: " + "Humano -> " + humanScore + " Ordenador -> " + computerScore);
+            console.log("Ordenador gana 1 punto.");
         } else {
             humanScore += 1;
-            console.log("Humano gana 1 punto. Marcador actual: " + "Humano -> " + humanScore + " Ordenador -> " + computerScore);
+            console.log("Humano gana 1 punto.");
         }
-        countRounds += 1;
+
+        result.textContent = `Marcador actual: Humano -> ${humanScore} | Ordenador -> ${computerScore}`;
+
+        if (humanScore === 5 || computerScore === 5) {
+            if (humanScore > computerScore) {
+                result.textContent="El ganador es el HUMANO";
+                console.log();
+            } else {
+                result.textContent="El ganador es el ORDENADOR";
+            }
+            humanScore = 0;
+            computerScore = 0;
+        }
     }
 
-    if (humanScore > computerScore) {
-        console.log("El ganador es el HUMANO");
-    } else if (computerScore > humanScore) {
-        console.log("El ganador es el ORDENADOR");
-    } else {
-        console.log("Es un empate total");
-    }
-}
-
-playRound();
+    btnRock.addEventListener("click", () => playRound("piedra"));
+    btnPaper.addEventListener("click", () => playRound("papel"));
+    btnScissors.addEventListener("click", () => playRound("tijera"));
+});
