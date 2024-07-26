@@ -20,12 +20,12 @@ function playRound() {
         const humanChoice = getHumanChoice();
         const computerChoice = getComputerChoice();
         console.log(`Ronda ${countRounds}: Humano -> ${humanChoice} | Ordenador -> ${computerChoice}`);
-        
+
         if (humanChoice === computerChoice) {
             console.log("Vaya es un empate. Marcador actual: " + "Humano -> " + humanScore + " Ordenador -> " + computerScore);
-        } else if ((humanChoice === "piedra" && computerChoice === "papel") || 
-                   (humanChoice === "papel" && computerChoice === "tijera") || 
-                   (humanChoice === "tijera" && computerChoice === "piedra")) {
+        } else if ((humanChoice === "piedra" && computerChoice === "papel") ||
+            (humanChoice === "papel" && computerChoice === "tijera") ||
+            (humanChoice === "tijera" && computerChoice === "piedra")) {
             computerScore += 1;
             console.log("Ordenador gana 1 punto. Marcador actual: " + "Humano -> " + humanScore + " Ordenador -> " + computerScore);
         } else {
@@ -34,7 +34,7 @@ function playRound() {
         }
         countRounds += 1;
     }
-    
+
     if (humanScore > computerScore) {
         console.log("El ganador es el HUMANO");
     } else if (computerScore > humanScore) {
